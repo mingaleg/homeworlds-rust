@@ -53,7 +53,7 @@ enum BasicOperation {
 #[derive(Error, Debug)]
 enum OperationError {
     #[error("star system with name {name:?} already exists")]
-    DuplicatedStarSystemName{name: String},
+    DuplicatedStarSystemName { name: String },
     #[error("cannot update pending powers")]
     UpdatePendingPowersError(#[from] UpdatePendingPowersError),
     #[error("unknown star system")]
@@ -137,7 +137,7 @@ impl Apply for DiscoverSystem {
             .iter()
             .any(|it| it.name == self.name)
         {
-            return Err(OperationError::DuplicatedStarSystemName{name: self.name});
+            return Err(OperationError::DuplicatedStarSystemName { name: self.name });
         }
         game_board.discovered_systems.push(board::StarSystem {
             name: self.name,
@@ -154,13 +154,11 @@ impl Apply for UpdatePendingPowers {
         let mut pending_powers = replace(&mut state.pending_powers, PendingPowers::Nil);
         state.pending_powers = match self {
             UpdatePendingPowers::Set { power, count } => match pending_powers {
-                PendingPowers::Nil => {
-                    PendingPowers::Pending {
-                        power,
-                        count,
-                        original_count: count,
-                    }
-                }
+                PendingPowers::Nil => PendingPowers::Pending {
+                    power,
+                    count,
+                    original_count: count,
+                },
                 _ => return Err(UpdatePendingPowersError::CanOnlyBeSetOnce.into()),
             },
 
@@ -181,7 +179,9 @@ impl Apply for UpdatePendingPowers {
                     }
                 }
                 PendingPowers::Nil => return Err(UpdatePendingPowersError::NotSet.into()),
-                PendingPowers::Exhausted{..} => return Err(UpdatePendingPowersError::AlreadyExhausted.into()),
+                PendingPowers::Exhausted { .. } => {
+                    return Err(UpdatePendingPowersError::AlreadyExhausted.into());
+                }
             },
         };
         Ok(())
@@ -190,7 +190,9 @@ impl Apply for UpdatePendingPowers {
 
 impl Apply for UpdateFleet {
     fn apply(self, state: &mut current_turn::CurrentTurnState) -> Result<(), OperationError> {
-        let Some(star_system) = state.game_board.discovered_systems
+        let Some(star_system) = state
+            .game_board
+            .discovered_systems
             .iter_mut()
             .find(|it| it.name == self.star_system_name)
         else {

@@ -1,10 +1,9 @@
 #![allow(dead_code)]
 
-mod public;
 mod engine;
+mod public;
 
-use public::{*, common::Player};
-
+use public::{common::Player, *};
 
 impl common::Player {
     fn opponent(&self) -> Player {

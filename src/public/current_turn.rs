@@ -1,11 +1,18 @@
-use std::num::NonZero;
-use super::common::*;
 use super::board::*;
+use super::common::*;
+use std::num::NonZero;
 
 pub enum PendingPowers {
     Nil,
-    Pending {power: Power, count: NonZero<u8>, original_count: NonZero<u8>},
-    Exhausted {power: Power, original_count: NonZero<u8>},
+    Pending {
+        power: Power,
+        count: NonZero<u8>,
+        original_count: NonZero<u8>,
+    },
+    Exhausted {
+        power: Power,
+        original_count: NonZero<u8>,
+    },
 }
 
 pub enum CurrentTurnStatus {

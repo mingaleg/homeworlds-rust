@@ -1,6 +1,6 @@
+use super::common::*;
 use std::collections::HashMap;
 use std::num::NonZero;
-use super::common::*;
 
 pub struct Star(Pyramid);
 
@@ -12,7 +12,7 @@ pub enum BinaryStarId {
 pub enum StarSystemCenter {
     Empty,
     SingleStar(Star),
-    BinaryStar{alpha: Star, beta: Star},
+    BinaryStar { alpha: Star, beta: Star },
 }
 
 #[derive(Eq, Hash, PartialEq)]
