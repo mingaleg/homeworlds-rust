@@ -2,7 +2,8 @@ use super::common::*;
 use std::collections::HashMap;
 use std::num::NonZero;
 
-pub struct Star(Pyramid);
+#[derive(Copy, Clone)]
+pub struct Star(pub Pyramid);
 
 pub enum BinaryStarId {
     Alpha,
@@ -15,7 +16,7 @@ pub enum StarSystemCenter {
     BinaryStar { alpha: Star, beta: Star },
 }
 
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Copy, Clone)]
 pub struct Starship(pub Pyramid);
 
 #[derive(Default)]
@@ -28,6 +29,7 @@ pub struct StarSystem {
     pub center: StarSystemCenter,
     pub fleet_first: Fleet,
     pub fleet_second: Fleet,
+    pub is_homeworld_for: Option<Player>,
 }
 
 impl StarSystem {

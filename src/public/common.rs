@@ -1,4 +1,4 @@
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Copy, Clone)]
 pub enum Color {
     Green,
     Yellow,
@@ -6,7 +6,7 @@ pub enum Color {
     Blue,
 }
 
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Copy, Clone)]
 pub enum Size {
     Small,
     Medium,
@@ -20,10 +20,10 @@ pub enum Power {
     Trade,
 }
 
-#[derive(Eq, Hash, PartialEq)]
+#[derive(Eq, Hash, PartialEq, Copy, Clone)]
 pub struct Pyramid {
-    color: Color,
-    size: Size,
+    pub color: Color,
+    pub size: Size,
 }
 
 pub enum Player {
