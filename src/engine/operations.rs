@@ -4,6 +4,7 @@ mod fleet;
 mod pending_powers;
 mod stars;
 mod systems;
+mod turn;
 mod utils;
 
 use crate::public::*;
@@ -42,6 +43,8 @@ enum OperationError {
     ForgetSystemError(#[from] systems::ForgetSystemError),
     #[error("cannot destroy star")]
     DestroyStarError(#[from] stars::DestroyStarError),
+    #[error("cannot update current turn status")]
+    SetCurrentTurnStatusError(#[from] turn::SetCurrentTurnStatusError),
 }
 
 #[enum_dispatch(BasicOperation)]

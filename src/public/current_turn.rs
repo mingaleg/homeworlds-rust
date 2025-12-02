@@ -1,6 +1,7 @@
 use super::board::*;
 use super::common::*;
 use std::num::NonZero;
+use strum_macros::EnumIter;
 
 pub enum PendingPowers {
     Nil,
@@ -15,6 +16,7 @@ pub enum PendingPowers {
     },
 }
 
+#[derive(Eq, PartialEq, EnumIter, Clone)]
 pub enum CurrentTurnStatus {
     MakingActions,
     Passing,
